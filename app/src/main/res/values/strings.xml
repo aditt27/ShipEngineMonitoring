@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Ship Engine Monitoring</string>
+
+    <string name="cooling">Cooling</string>
+    <string name="fueloil">Fuel Oil</string>
+    <string name="gasexhaust">Gas Exhaust</string>
+    <string name="lubeoil">Lube Oil</string>
+    <string name="ship_engine_monitoring">Ship Engine Monitoring</string>
+</resources>

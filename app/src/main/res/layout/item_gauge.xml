@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="18dp">
+
+        <TextView
+            android:id="@+id/gauge_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Judul"
+            android:textStyle="bold"
+            android:textSize="20sp" />
+
+       <com.github.anastr.speedviewlib.SpeedView
+           android:id="@+id/gauge"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_margin="20dp"
+           app:sv_indicator="LineIndicator"
+           app:sv_indicatorWidth="3dp"
+           app:sv_textSize="10sp"
+           app:sv_speedometerWidth="22dp"
+           app:sv_tickPadding="22dp"
+           app:sv_speedTextSize="18sp"
+           app:sv_unit="°C"
+           app:sv_withTremble="false"
+           app:sv_speedTextPadding="0dp"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
