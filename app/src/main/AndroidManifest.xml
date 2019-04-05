@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.adibu.shipmonitoring">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,23 +12,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LubeOil"
-            android:parentActivityName=".MainActivity"
+            android:name=".activity.LubeOil"
+            android:parentActivityName=".activity.MainActivity"
             android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".GasExhaust"
-            android:parentActivityName=".MainActivity"
+            android:name=".activity.GasExhaust"
+            android:parentActivityName=".activity.MainActivity"
             android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".FuelOil"
-            android:parentActivityName=".MainActivity"
+            android:name=".activity.FuelOil"
+            android:parentActivityName=".activity.MainActivity"
             android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".Cooling"
-            android:parentActivityName=".MainActivity"
+            android:name=".activity.Cooling"
+            android:parentActivityName=".activity.MainActivity"
             android:theme="@style/NoBarTheme"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:theme="@style/NoBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.adibu.shipmonitoring.model.GaugeModel;
 import com.github.anastr.speedviewlib.SpeedView;
 
 import java.util.List;

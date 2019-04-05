@@ -1,16 +1,16 @@
-package com.adibu.shipmonitoring;
+package com.adibu.shipmonitoring.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.adibu.shipmonitoring.R;
+import com.adibu.shipmonitoring.model.GaugeModel;
+
 import java.util.List;
 
 public class FuelOil extends AppCompatActivity {

@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.adibu.shipmonitoring.model.GridModel;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 

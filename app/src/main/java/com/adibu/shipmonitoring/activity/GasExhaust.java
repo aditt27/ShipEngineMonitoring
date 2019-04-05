@@ -1,19 +1,19 @@
-package com.adibu.shipmonitoring;
+package com.adibu.shipmonitoring.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NavUtils;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.adibu.shipmonitoring.R;
+import com.adibu.shipmonitoring.model.GaugeModel;
+
 import java.util.List;
 
-public class LubeOil extends AppCompatActivity {
+public class GasExhaust extends AppCompatActivity {
 
     List<GaugeModel> gaugeList;
 
@@ -28,7 +28,7 @@ public class LubeOil extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         TextView title = findViewById(R.id.activity_title);
-        title.setText(R.string.lubeoil);
+        title.setText(R.string.gasexhaust);
     }
 
     @Override

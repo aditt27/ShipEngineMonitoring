@@ -1,4 +1,4 @@
-package com.adibu.shipmonitoring;
+package com.adibu.shipmonitoring.model;
 
 public class GridModel {
     private int judul;
