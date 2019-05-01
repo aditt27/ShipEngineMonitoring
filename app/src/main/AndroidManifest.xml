@@ -12,24 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.LubeOil"
-            android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/NoBarTheme"/>
-        <activity
-            android:name=".activity.GasExhaust"
-            android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/NoBarTheme"/>
-        <activity
-            android:name=".activity.FuelOil"
-            android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/NoBarTheme"/>
-        <activity
-            android:name=".activity.Cooling"
-            android:parentActivityName=".activity.MainActivity"
-            android:theme="@style/NoBarTheme"/>
-        <activity
-            android:name=".activity.MainActivity"
-            android:theme="@style/NoBarTheme">
+            android:name=".view.ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

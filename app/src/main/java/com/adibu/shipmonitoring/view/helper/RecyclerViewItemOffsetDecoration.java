@@ -1,4 +1,4 @@
-package com.adibu.shipmonitoring;
+package com.adibu.shipmonitoring.view.helper;
 
 import android.content.Context;
 import android.graphics.Rect;

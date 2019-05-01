@@ -1,4 +1,4 @@
-package com.adibu.shipmonitoring;
+package com.adibu.shipmonitoring.view.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.adibu.shipmonitoring.R;
 import com.adibu.shipmonitoring.model.GaugeModel;
 import com.github.anastr.speedviewlib.SpeedView;
 
@@ -34,6 +35,7 @@ public class GaugeAdapter extends RecyclerView.Adapter<GaugeAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
+        holder.categories.setText(mData.get(position).getCategories());
         holder.title.setText(mData.get(position).getTitle());
         holder.gauge.setMinSpeed(mData.get(position).getMin());
         holder.gauge.setMaxSpeed(mData.get(position).getMax());
@@ -49,10 +51,12 @@ public class GaugeAdapter extends RecyclerView.Adapter<GaugeAdapter.MyViewHolder
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
         TextView title;
+        TextView categories;
         SpeedView gauge;
 
         public MyViewHolder(View itemView) {
             super(itemView);
+            categories = itemView.findViewById(R.id.gauge_categories);
             title = itemView.findViewById(R.id.gauge_title) ;
             gauge = itemView.findViewById(R.id.gauge);
         }

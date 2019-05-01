@@ -7,14 +7,16 @@ public class GaugeModel {
     private float max;
     private float current;
     private String id;
+    private int categories;
 
 
-    public GaugeModel(String title, String unit, float min, float max, String id) {
+    public GaugeModel(String title, String unit, float min, float max, String id, int categories) {
         this.title = title;
         this.unit = unit;
         this.min = min;
         this.max = max;
         this.id = id;
+        this.categories = categories;
     }
 
     public float getMin() {
@@ -45,4 +47,7 @@ public class GaugeModel {
         return id;
     }
 
+    public int getCategories() {
+        return categories;
+    }
 }
