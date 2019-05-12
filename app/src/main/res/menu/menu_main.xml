@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_cooling"
+        android:title="@string/cooling"
+        />
+    <item
+        android:id="@+id/menu_fuel_oil"
+        android:title="@string/fueloil"
+        />
+    <item
+        android:id="@+id/menu_gas_exhaust"
+        android:title="@string/gasexhaust"/>
+    <item
+        android:id="@+id/menu_lube_oil"
+        android:title="@string/lubeoil"/>
+
+    <item
+        android:id="@+id/warning_message"
+        android:title="@string/warning"
+        app:showAsAction="always"
+        android:icon="@drawable/exclamationmark"/>
+
+</menu>

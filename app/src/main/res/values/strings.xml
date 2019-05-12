@@ -5,6 +5,5 @@
     <string name="fueloil">Fuel Oil</string>
     <string name="gasexhaust">Gas Exhaust</string>
     <string name="lubeoil">Lube Oil</string>
-    <string name="ship_engine_monitoring">Ship Engine Monitoring</string>
     <string name="warning">Warning</string>
 </resources>

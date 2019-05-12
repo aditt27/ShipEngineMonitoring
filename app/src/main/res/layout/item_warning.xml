@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/item_warning_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="7dp"
+        android:src="@drawable/exclamationmark"/>
+
+    <TextView
+        android:id="@+id/item_warning_categories"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/item_warning_image"
+        android:text="Cooling"/>
+
+    <TextView
+        android:id="@+id/item_warning_separator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/item_warning_categories"
+        android:text=" - "/>
+
+    <TextView
+        android:id="@+id/item_warning_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/item_warning_separator"
+        android:text="FW Temp. After ME"/>
+
+    <TextView
+        android:id="@+id/item_warning_message"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/item_warning_image"
+        android:layout_below="@id/item_warning_title"
+        android:text="Abnormal. Suhu lebih dari 90"/>
+
+</RelativeLayout>
