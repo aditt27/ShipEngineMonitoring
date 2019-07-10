@@ -5,7 +5,7 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 
-public class ImageBlinking {
+public class MethodHelper {
 
     public static void imageBlinking(ImageView imageView) {
         Animation animation = new AlphaAnimation(1, 0); //to change visibility from visible to invisible

@@ -12,15 +12,16 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/image_view_diagram"
+            android:id="@+id/main_engine_image_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
             android:adjustViewBounds="true"
-            android:scaleType="fitStart" />
+            android:scaleType="fitStart"
+            android:src="@drawable/main_engine_model" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/activity_recycler_view"
+            android:id="@+id/main_engine_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"

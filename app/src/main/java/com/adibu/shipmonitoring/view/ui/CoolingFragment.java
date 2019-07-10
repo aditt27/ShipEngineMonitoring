@@ -21,14 +21,9 @@ import com.adibu.shipmonitoring.R;
 import com.adibu.shipmonitoring.model.GaugeModel;
 import com.adibu.shipmonitoring.model.KeyValueModel;
 import com.adibu.shipmonitoring.view.adapter.GaugeAdapter;
-import com.adibu.shipmonitoring.view.helper.ImageBlinking;
+import com.adibu.shipmonitoring.view.helper.MethodHelper;
 import com.adibu.shipmonitoring.view.helper.RecyclerViewItemOffsetDecoration;
-import com.adibu.shipmonitoring.view.viewmodel.MainActivityViewModel;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.adibu.shipmonitoring.viewmodel.MainActivityViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,15 +68,13 @@ public class CoolingFragment extends Fragment {
         mWarningViewList.add((ImageView) view.findViewById(R.id.cooling_swpressbeforecu_sign4));
         mWarningViewList.add((ImageView) view.findViewById(R.id.cooling_voltankexp_sign5));
 
-        RecyclerView recyclerView = view.findViewById(R.id.activity_recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.cooling_recycler_view);
         mGaugeAdapter = new GaugeAdapter(getActivity(), mCoolingGaugeList);
         RecyclerViewItemOffsetDecoration itemDecoration = new RecyclerViewItemOffsetDecoration(getActivity(), R.dimen.item_offset);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         recyclerView.addItemDecoration(itemDecoration);
         recyclerView.setAdapter(mGaugeAdapter);
-
-        ImageView imageView = view.findViewById(R.id.image_view_diagram);
-        imageView.setImageResource(R.drawable.cooling_model);
+        recyclerView.setNestedScrollingEnabled(false);
 
         // Inflate the layout for this fragment
         return view;
@@ -90,10 +83,10 @@ public class CoolingFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mViewModel.getCoolingData().observe(this, new Observer<List<KeyValueModel>>() {
+        mViewModel.getData().observe(this, new Observer<List<KeyValueModel>>() {
             @Override
             public void onChanged(List<KeyValueModel> keyValueModels) {
-                Log.d("Observe Cooling: ", keyValueModels.toString());
+                Log.d("Observe Data(CO Frag): ", keyValueModels.toString());
                 for (int i=0;i<keyValueModels.size();i++) {
                     float value = Float.valueOf(keyValueModels.get(i).getValue());
                     switch (keyValueModels.get(i).getKey()) {
@@ -101,10 +94,10 @@ public class CoolingFragment extends Fragment {
                             mCoolingGaugeList.get(0).setCurrent(value);
                             mGaugeAdapter.notifyDataSetChanged();
                             if(value<40) {
-                                ImageBlinking.imageBlinking(mWarningViewList.get(0));
+                                MethodHelper.imageBlinking(mWarningViewList.get(0));
                             }
                             else if(value>90) {
-                                ImageBlinking.imageBlinking(mWarningViewList.get(0));
+                                MethodHelper.imageBlinking(mWarningViewList.get(0));
                             } else {
                                 mWarningViewList.get(0).clearAnimation();
                             }
@@ -113,10 +106,10 @@ public class CoolingFragment extends Fragment {
                             mCoolingGaugeList.get(1).setCurrent(value);
                             mGaugeAdapter.notifyDataSetChanged();
                             if(value<30) {
-                                ImageBlinking.imageBlinking(mWarningViewList.get(1));
+                                MethodHelper.imageBlinking(mWarningViewList.get(1));
                             }
                             else if(value>50) {
-                                ImageBlinking.imageBlinking(mWarningViewList.get(1));
+                                MethodHelper.imageBlinking(mWarningViewList.get(1));
                             } else {
                                 mWarningViewList.get(1).clearAnimation();
                             }
@@ -125,10 +118,10 @@ public class CoolingFragment extends Fragment {
                             mCoolingGaugeList.get(2).setCurrent(value);
                             mGaugeAdapter.notifyDataSetChanged();
                             if(value<40) {
-                                ImageBlinking.imageBlinking(mWarningViewList.get(2));
+                                MethodHelper.imageBlinking(mWarningViewList.get(2));
                             }
                             else if(value>50) {
-                                ImageBlinking.imageBlinking(mWarningViewList.get(2));
+                                MethodHelper.imageBlinking(mWarningViewList.get(2));
                             } else {
                                 mWarningViewList.get(2).clearAnimation();
                             }
@@ -137,7 +130,7 @@ public class CoolingFragment extends Fragment {
                             mCoolingGaugeList.get(3).setCurrent(value);
                             mGaugeAdapter.notifyDataSetChanged();
                             if(value<0.15) {
-                                ImageBlinking.imageBlinking(mWarningViewList.get(3));
+                                MethodHelper.imageBlinking(mWarningViewList.get(3));
                             } else {
                                 mWarningViewList.get(3).clearAnimation();
                             }
@@ -146,7 +139,7 @@ public class CoolingFragment extends Fragment {
                             mCoolingGaugeList.get(4).setCurrent(value);
                             mGaugeAdapter.notifyDataSetChanged();
                             if(value<50) {
-                                ImageBlinking.imageBlinking(mWarningViewList.get(4));
+                                MethodHelper.imageBlinking(mWarningViewList.get(4));
                             } else {
                                 mWarningViewList.get(4).clearAnimation();
                             }

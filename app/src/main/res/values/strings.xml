@@ -1,9 +1,15 @@
 <resources>
     <string name="app_name">Ship Engine Monitoring</string>
+    <string name="detail_warning">Detail Warning</string>
 
     <string name="cooling">Cooling</string>
     <string name="fueloil">Fuel Oil</string>
-    <string name="gasexhaust">Gas Exhaust</string>
+    <string name="mainengine">Main Engine</string>
     <string name="lubeoil">Lube Oil</string>
     <string name="warning">Warning</string>
+
+    <string name="kategori">Kategori</string>
+    <string name="Judul">Judul</string>
+    <string name="pesan">Pesan</string>
+    <string name="Rekomendasi">Rekomendasi</string>
 </resources>

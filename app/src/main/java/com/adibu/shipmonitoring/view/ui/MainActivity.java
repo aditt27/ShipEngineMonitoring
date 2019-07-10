@@ -8,19 +8,24 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.adibu.shipmonitoring.R;
 import com.adibu.shipmonitoring.model.KeyValueModel;
 import com.adibu.shipmonitoring.model.WarningModel;
-import com.adibu.shipmonitoring.view.adapter.WarningAdapter;
-import com.adibu.shipmonitoring.view.viewmodel.MainActivityViewModel;
+import com.adibu.shipmonitoring.viewmodel.MainActivityViewModel;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityViewModel mViewModel;
 
     private FirebaseDatabase mDatabase;
-    private DatabaseReference mCoolingReference;
+    private DatabaseReference mDataReference;
 
     private MediaPlayer mMediaPlayer;
 
-    private static final String FIREBASE_COOLING_TAG = "Firebase_Cooling";
+    private static final String FIREBASE_TAG = "Firebase";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +59,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mDatabase = FirebaseDatabase.getInstance();
-        mCoolingReference = mDatabase.getReference("cooling");
+        mDataReference = mDatabase.getReference("data");
 
         mDrawerLayout = findViewById(R.id.main_drawer_layout);
 
         mWarningList = new ArrayList<>();
 
         mWarningMessage = findViewById(R.id.main_warning_rview);
-        mWarningAdapter = new WarningAdapter(this, mWarningList);
+        mWarningAdapter = new WarningAdapter(mWarningList);
         mWarningMessage.setLayoutManager(new LinearLayoutManager(this));
         mWarningMessage.setAdapter(mWarningAdapter);
 
@@ -86,67 +91,42 @@ public class MainActivity extends AppCompatActivity {
             setTitle(getString(R.string.app_name) + " - " + getString(R.string.cooling));
         }
 
-        mCoolingReference.addValueEventListener(new ValueEventListener() {
+        //Ambil data dari firebase
+        mDataReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<KeyValueModel> coolingData = new ArrayList<>();
+                List<KeyValueModel> data = new ArrayList<>();
                 for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                    coolingData.add(new KeyValueModel(childSnapshot.getKey(), childSnapshot.getValue().toString()));
+                    Log.e(FIREBASE_TAG, "key:" + childSnapshot.getKey() + ", value:" + childSnapshot.getValue());
+                    data.add(new KeyValueModel(childSnapshot.getKey(), childSnapshot.getValue().toString()));
                 }
-                mViewModel.getCoolingData().setValue(coolingData);
+                mViewModel.getData().setValue(data);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.w(FIREBASE_COOLING_TAG, "Cancelled: ", databaseError.toException());
+                Log.w(FIREBASE_TAG, "Cancelled: ", databaseError.toException());
             }
         });
 
-        mViewModel.getCoolingData().observe(this, new Observer<List<KeyValueModel>>() {
+        //Warning
+        mViewModel.getData().observe(this, new Observer<List<KeyValueModel>>() {
             @Override
             public void onChanged(List<KeyValueModel> keyValueModels) {
-                Log.d("Observe Main Activity: ", keyValueModels.toString());
                 mWarningList.clear();
                 for (int i=0;i<keyValueModels.size();i++) {
                     float value = Float.valueOf(keyValueModels.get(i).getValue());
-                    switch (keyValueModels.get(i).getKey()) {
-                        case "fwtempafterme":
-                            if (value < 40) {
-                                mWarningList.add(new WarningModel("Cooling", "FW Temp. After ME", "Abnormal. Suhu<40°C"));
-                            } else if (value > 90) {
-                                mWarningList.add(new WarningModel("Cooling", "FW Temp. After ME", "Abnormal. Suhu>90°C"));
-                            }
-                            break;
-                        case "fwtempbeforeme":
-                            if (value < 30) {
-                                mWarningList.add(new WarningModel("Cooling", "FW Temp. Before ME", "Abnormal. Suhu<30°C"));
-                            } else if (value > 50) {
-                                mWarningList.add(new WarningModel("Cooling", "FW Temp. Before ME", "Abnormal. Suhu>40°C"));
-                            }
-                            break;
-                        case "fwpressbeforeme":
-                            if (value < 40) {
-                                mWarningList.add(new WarningModel("Cooling", "FW Press Before ME", "Abnormal. Tekanan<40Mpa"));
-                            } else if (value > 50) {
-                                mWarningList.add(new WarningModel("Cooling", "FW Press Before ME", "Abnormal. Tekanan>50Mpa"));
-                            }
-                            break;
-                        case "swpressbeforecu":
-                            if (value < 0.15) {
-                                mWarningList.add(new WarningModel("Cooling", "SW Press Before CU", "Abnormal. Tekanan<0.15Mpa"));
-                            }
-                            break;
-                        case "voltankexp":
-                            if (value < 50) {
-                                mWarningList.add(new WarningModel("Cooling", "Vol. Tank Exp.", "Abnormal. Volume<50%"));
-                            }
-                            break;
+                    String key = keyValueModels.get(i).getKey();
+                    WarningModel warningModel = new WarningModel(key, value);
+                    if(warningModel.getMessage()!=null) {
+                        mWarningList.add(warningModel);
                     }
                 }
                 mViewModel.getWarningData().setValue(mWarningList);
             }
         });
 
+        //Nyalakan suara jika ada warning
         mViewModel.getWarningData().observe(this, new Observer<List<WarningModel>>() {
             @Override
             public void onChanged(List<WarningModel> warningModels) {
@@ -204,9 +184,9 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.main_frame_layout, new FuelOilFragment()).commit();
                 return true;
             case R.id.menu_gas_exhaust:
-                setTitle(getString(R.string.app_name) + " - " + getString(R.string.gasexhaust));
+                setTitle(getString(R.string.app_name) + " - " + getString(R.string.mainengine));
                 getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.main_frame_layout, new GasExhaustFragment()).commit();
+                        .replace(R.id.main_frame_layout, new MainEngineFragment()).commit();
                 return true;
             case R.id.menu_lube_oil:
                 setTitle(getString(R.string.app_name) + " - " + getString(R.string.lubeoil));
@@ -236,5 +216,62 @@ public class MainActivity extends AppCompatActivity {
             playWarningSound();
         }
         super.onStart();
+    }
+
+    public class WarningAdapter extends RecyclerView.Adapter<WarningAdapter.MyViewHolder> {
+
+        private List<WarningModel> mData ;
+
+        public WarningAdapter(List<WarningModel> mData) {
+            this.mData = mData;
+        }
+
+        @NonNull
+        @Override
+        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view ;
+            LayoutInflater mInflater = LayoutInflater.from(parent.getContext());
+            view = mInflater.inflate(R.layout.item_warning,parent,false);
+            return new MyViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull final MyViewHolder holder, int position) {
+            holder.categories.setText(mData.get(position).getCategories());
+            holder.title.setText(mData.get(position).getTitle());
+            holder.message.setText(mData.get(position).getMessage());
+            holder.item.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(MainActivity.this, DetailWarningActivity.class);
+                    i.putExtra("category",mWarningList.get(holder.getAdapterPosition()).getCategories());
+                    i.putExtra("title", mWarningList.get(holder.getAdapterPosition()).getTitle());
+                    i.putExtra("message", mWarningList.get(holder.getAdapterPosition()).getMessage());
+                    i.putExtra("recommendation", mWarningList.get(holder.getAdapterPosition()).getRecommendation());
+                    startActivity(i);
+                }
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return mData.size();
+        }
+
+        public class MyViewHolder extends RecyclerView.ViewHolder {
+
+            TextView title;
+            TextView categories;
+            TextView message;
+            RelativeLayout item;
+
+            public MyViewHolder(View itemView) {
+                super(itemView);
+                categories = itemView.findViewById(R.id.item_warning_categories);
+                title = itemView.findViewById(R.id.item_warning_title) ;
+                message = itemView.findViewById(R.id.item_warning_message);
+                item = itemView.findViewById(R.id.item_warning);
+            }
+        }
     }
 }

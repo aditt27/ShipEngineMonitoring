@@ -32,10 +32,10 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LubeOilFragment extends Fragment {
+public class MainEngineFragment extends Fragment {
 
     //Gauge List
-    private List<GaugeModel> mLubeOilGaugeList;
+    private List<GaugeModel> mMainEngineGaugeList;
 
     private GaugeAdapter mGaugeAdapter;
 
@@ -43,8 +43,7 @@ public class LubeOilFragment extends Fragment {
 
     private MainActivityViewModel mViewModel;
 
-
-    public LubeOilFragment() {
+    public MainEngineFragment() {
         // Required empty public constructor
     }
 
@@ -52,26 +51,22 @@ public class LubeOilFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lube_oil, container, false);
+        View view = inflater.inflate(R.layout.fragment_main_engine, container, false);
 
         mViewModel = ViewModelProviders.of(getActivity()).get(MainActivityViewModel.class);
 
-        mLubeOilGaugeList = new ArrayList<>();
-        mLubeOilGaugeList.add(new GaugeModel("LO Temp Before ME", "°C", 0, 100, "lotempbeforeme", R.string.lubeoil));
-        mLubeOilGaugeList.add(new GaugeModel("LO Temp After ME", "°C",0, 100, "lotempafterme", R.string.lubeoil));
-        mLubeOilGaugeList.add(new GaugeModel("LO Transfer Pump", "Mpa",0, 1, "lotransferpump", R.string.lubeoil));
-        mLubeOilGaugeList.add(new GaugeModel("LO Circl. Pump Press.", "Mpa",0, 2, "locirclpumppress", R.string.lubeoil));
-        mLubeOilGaugeList.add(new GaugeModel("LO Sump Tank Lvl", "cm",0, 150, "losumptanklvl", R.string.lubeoil));
+        mMainEngineGaugeList = new ArrayList<>();
+        mMainEngineGaugeList.add(new GaugeModel("Starting Air", "Mpa", 0, 10, "mestartingair", R.string.mainengine));
+        mMainEngineGaugeList.add(new GaugeModel("Gas Temp Before Turbo", "°C", 0, 100, "megastempbeforeturbo", R.string.mainengine));
+        mMainEngineGaugeList.add(new GaugeModel("Gas Temp After Turbo", "°C",0, 500, "megastempafterturbo", R.string.mainengine));
 
         mWarningViewList = new ArrayList<>();
-        mWarningViewList.add((ImageView) view.findViewById(R.id.lo_b));
-        mWarningViewList.add((ImageView) view.findViewById(R.id.lo_c));
-        mWarningViewList.add((ImageView) view.findViewById(R.id.lo_d));
-        mWarningViewList.add((ImageView) view.findViewById(R.id.lo_e));
-        mWarningViewList.add((ImageView) view.findViewById(R.id.lo_f));
+        mWarningViewList.add((ImageView) view.findViewById(R.id.me_a));
+        mWarningViewList.add((ImageView) view.findViewById(R.id.me_b));
+        mWarningViewList.add((ImageView) view.findViewById(R.id.me_c));
 
-        RecyclerView recyclerView = view.findViewById(R.id.lube_oil_recycler_view);
-        mGaugeAdapter = new GaugeAdapter(getActivity(), mLubeOilGaugeList);
+        RecyclerView recyclerView = view.findViewById(R.id.main_engine_recycler_view);
+        mGaugeAdapter = new GaugeAdapter(getActivity(), mMainEngineGaugeList);
         RecyclerViewItemOffsetDecoration itemDecoration = new RecyclerViewItemOffsetDecoration(getActivity(), R.dimen.item_offset);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 4));
         recyclerView.addItemDecoration(itemDecoration);
@@ -86,58 +81,38 @@ public class LubeOilFragment extends Fragment {
         mViewModel.getData().observe(this, new Observer<List<KeyValueModel>>() {
             @Override
             public void onChanged(List<KeyValueModel> keyValueModels) {
-                Log.d("Observe Data(LO Frag): ", keyValueModels.toString());
+                Log.d("Observe Data(ME Frag): ", keyValueModels.toString());
                 for (int i=0;i<keyValueModels.size();i++) {
                     float value = Float.valueOf(keyValueModels.get(i).getValue());
                     switch (keyValueModels.get(i).getKey()) {
-                        case "lotempbeforeme":
-                            mLubeOilGaugeList.get(0).setCurrent(value);
+                        case "mestartingair":
+                            mMainEngineGaugeList.get(0).setCurrent(value);
                             mGaugeAdapter.notifyDataSetChanged();
-                            if(value<35 || value>50) {
+                            if(value<2 || value>4) {
                                 MethodHelper.imageBlinking(mWarningViewList.get(0));
                             }
                             else {
                                 mWarningViewList.get(0).clearAnimation();
                             }
                             break;
-                        case "lotempafterme":
-                            mLubeOilGaugeList.get(1).setCurrent(value);
+                        case "megastempbeforeturbo":
+                            mMainEngineGaugeList.get(1).setCurrent(value);
                             mGaugeAdapter.notifyDataSetChanged();
-                            if(value<75 || value>90) {
+                            if(value<30 || value>45) {
                                 MethodHelper.imageBlinking(mWarningViewList.get(1));
                             }
                             else {
                                 mWarningViewList.get(1).clearAnimation();
                             }
                             break;
-                        case "lotransferpump":
-                            mLubeOilGaugeList.get(2).setCurrent(value);
+                        case "megastempafterturbo":
+                            mMainEngineGaugeList.get(2).setCurrent(value);
                             mGaugeAdapter.notifyDataSetChanged();
-                            if(value<0.5 || value>0.7) {
+                            if(value<300 || value>370) {
                                 MethodHelper.imageBlinking(mWarningViewList.get(2));
                             }
                             else {
                                 mWarningViewList.get(2).clearAnimation();
-                            }
-                            break;
-                        case "locirclpumppress":
-                            mLubeOilGaugeList.get(3).setCurrent(value);
-                            mGaugeAdapter.notifyDataSetChanged();
-                            if(value<1.4 || value>1.8) {
-                                MethodHelper.imageBlinking(mWarningViewList.get(3));
-                            }
-                            else {
-                                mWarningViewList.get(3).clearAnimation();
-                            }
-                            break;
-                        case "losumptanklvl":
-                            mLubeOilGaugeList.get(4).setCurrent(value);
-                            mGaugeAdapter.notifyDataSetChanged();
-                            if(value<30 || value>120) {
-                                MethodHelper.imageBlinking(mWarningViewList.get(4));
-                            }
-                            else {
-                                mWarningViewList.get(4).clearAnimation();
                             }
                             break;
                     }
@@ -145,5 +120,4 @@ public class LubeOilFragment extends Fragment {
             }
         });
     }
-
 }
