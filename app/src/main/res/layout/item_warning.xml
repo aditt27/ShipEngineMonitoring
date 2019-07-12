@@ -22,18 +22,12 @@
         android:text="Cooling"/>
 
     <TextView
-        android:id="@+id/item_warning_separator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/item_warning_categories"
-        android:text=" - "/>
-
-    <TextView
         android:id="@+id/item_warning_title"
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/item_warning_separator"
+        android:layout_below="@id/item_warning_categories"
+        android:layout_toEndOf="@id/item_warning_image"
         android:text="FW Temp. After ME"/>
 
     <TextView
@@ -43,5 +37,12 @@
         android:layout_toEndOf="@id/item_warning_image"
         android:layout_below="@id/item_warning_title"
         android:text="Abnormal. Suhu lebih dari 90"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/item_warning_message"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/darker_gray"/>
 
 </RelativeLayout>

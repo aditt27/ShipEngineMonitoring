@@ -233,7 +233,7 @@ public class WarningModel {
                             "1.Cek heater unit\n" +
                             "       a. Cek sumber tegangan dan saluran listrik\n" +
                             "       b. Cek terminal box\n" +
-                            "       c. Cek indicator suhupada heater\n";
+                            "       c. Cek indicator suhu pada heater\n";
                 } else if(value>150) {
                     message = "Abnormal. Suhu>150°C";
                     recommendation =
@@ -250,7 +250,7 @@ public class WarningModel {
                     recommendation =
                             "1. Cek pada pompa preheater\n" +
                             "2. Cek pada kelistrikan pompa preheater\n" +
-                            "       a. Cek pada Terminal Box\n" +
+                            "       a. Cek pada terminal box\n" +
                             "       b. Cek pada kabel aliran listrik\n" +
                             "       c. Cek pada sumber tegangan\n" +
                             "3. Cek pada  valve pada preheater\n" +
@@ -324,7 +324,7 @@ public class WarningModel {
                 }
                 break;
             //MAIN ENGINE
-            case "mestartingair":
+            case "startingair":
                 categories = MAINENGINE;
                 title = "Starting Air";
                 if(value<2) {
@@ -336,10 +336,10 @@ public class WarningModel {
                     message = "Abnormal. Tekanan>4Mpa";
                     recommendation =
                             "1. Cek setelan gas mesin\n" +
-                            "2. Cek sistem exhauts valve engine\n";
+                            "2. Cek sistem exhaust valve engine\n";
                 }
                 break;
-            case "megastempbeforeturbo":
+            case "gastempbefore":
                 categories = MAINENGINE;
                 title = "Gas Temp Before Turbo";
                 if(value<30) {
@@ -355,7 +355,7 @@ public class WarningModel {
                             "2. Cek cooling system\n";
                 }
                 break;
-            case "megastempafterturbo":
+            case "gastempafter":
                 categories = MAINENGINE;
                 title = "Gas Temp After Turbo";
                 if(value<300) {

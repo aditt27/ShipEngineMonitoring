@@ -56,9 +56,9 @@ public class MainEngineFragment extends Fragment {
         mViewModel = ViewModelProviders.of(getActivity()).get(MainActivityViewModel.class);
 
         mMainEngineGaugeList = new ArrayList<>();
-        mMainEngineGaugeList.add(new GaugeModel("Starting Air", "Mpa", 0, 10, "mestartingair", R.string.mainengine));
-        mMainEngineGaugeList.add(new GaugeModel("Gas Temp Before Turbo", "°C", 0, 100, "megastempbeforeturbo", R.string.mainengine));
-        mMainEngineGaugeList.add(new GaugeModel("Gas Temp After Turbo", "°C",0, 500, "megastempafterturbo", R.string.mainengine));
+        mMainEngineGaugeList.add(new GaugeModel("Starting Air", "Mpa", 0, 10, "startingair", R.string.mainengine));
+        mMainEngineGaugeList.add(new GaugeModel("Gas Temp Before Turbo", "°C", 0, 100, "gastempbefore", R.string.mainengine));
+        mMainEngineGaugeList.add(new GaugeModel("Gas Temp After Turbo", "°C",0, 500, "gastempafter", R.string.mainengine));
 
         mWarningViewList = new ArrayList<>();
         mWarningViewList.add((ImageView) view.findViewById(R.id.me_a));
@@ -85,7 +85,7 @@ public class MainEngineFragment extends Fragment {
                 for (int i=0;i<keyValueModels.size();i++) {
                     float value = Float.valueOf(keyValueModels.get(i).getValue());
                     switch (keyValueModels.get(i).getKey()) {
-                        case "mestartingair":
+                        case "startingair":
                             mMainEngineGaugeList.get(0).setCurrent(value);
                             mGaugeAdapter.notifyDataSetChanged();
                             if(value<2 || value>4) {
@@ -95,7 +95,7 @@ public class MainEngineFragment extends Fragment {
                                 mWarningViewList.get(0).clearAnimation();
                             }
                             break;
-                        case "megastempbeforeturbo":
+                        case "gastempbefore":
                             mMainEngineGaugeList.get(1).setCurrent(value);
                             mGaugeAdapter.notifyDataSetChanged();
                             if(value<30 || value>45) {
@@ -105,7 +105,7 @@ public class MainEngineFragment extends Fragment {
                                 mWarningViewList.get(1).clearAnimation();
                             }
                             break;
-                        case "megastempafterturbo":
+                        case "gastempafter":
                             mMainEngineGaugeList.get(2).setCurrent(value);
                             mGaugeAdapter.notifyDataSetChanged();
                             if(value<300 || value>370) {
