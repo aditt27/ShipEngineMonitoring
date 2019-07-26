@@ -4,7 +4,7 @@
 
     <string name="cooling">Cooling</string>
     <string name="fueloil">Fuel Oil</string>
-    <string name="mainengine">Main Engine</string>
+    <string name="exhaustgas">Exhaust Gas</string>
     <string name="lubeoil">Lube Oil</string>
     <string name="warning">Warning</string>
 

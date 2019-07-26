@@ -1,0 +1,44 @@
+{
+  "project_info": {
+    "project_number": "922701348064",
+    "firebase_url": "https://shipenginemonitoring.firebaseio.com",
+    "project_id": "shipenginemonitoring",
+    "storage_bucket": "shipenginemonitoring.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:922701348064:android:596deef559f4d22b",
+        "android_client_info": {
+          "package_name": "com.adibu.shipmonitoring"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "922701348064-o82jac404hrmui5g1reuvrgv95k03g91.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.adibu.shipmonitoring",
+            "certificate_hash": "f0c391d2a43075cd5b54ade7d6581077f435215f"
+          }
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlyM8WGrM4GyYUeotYR5sJ0DD8G7m2cnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "922701348064-ia7rojahgnrrlj8eolrg9h9kuqi5h0lo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

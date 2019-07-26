@@ -56,9 +56,9 @@ public class MainEngineFragment extends Fragment {
         mViewModel = ViewModelProviders.of(getActivity()).get(MainActivityViewModel.class);
 
         mMainEngineGaugeList = new ArrayList<>();
-        mMainEngineGaugeList.add(new GaugeModel("Starting Air", "Mpa", 0, 10, "startingair", R.string.mainengine));
-        mMainEngineGaugeList.add(new GaugeModel("Gas Temp Before Turbo", "°C", 0, 100, "gastempbefore", R.string.mainengine));
-        mMainEngineGaugeList.add(new GaugeModel("Gas Temp After Turbo", "°C",0, 500, "gastempafter", R.string.mainengine));
+        mMainEngineGaugeList.add(new GaugeModel("Starting Air", "Mpa", 0, 10, "startingair", R.string.exhaustgas));
+        mMainEngineGaugeList.add(new GaugeModel("Gas Temp Before Turbo", "°C", 0, 100, "gastempbefore", R.string.exhaustgas));
+        mMainEngineGaugeList.add(new GaugeModel("Gas Temp After Turbo", "°C",0, 500, "gastempafter", R.string.exhaustgas));
 
         mWarningViewList = new ArrayList<>();
         mWarningViewList.add((ImageView) view.findViewById(R.id.me_a));

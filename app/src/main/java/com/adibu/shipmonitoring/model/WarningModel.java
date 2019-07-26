@@ -10,7 +10,7 @@ public class WarningModel {
     private final String COOLING = "Cooling";
     private final String FUELOIL = "Fuel Oil";
     private final String LUBEOIL = "Lube Oil";
-    private final String MAINENGINE = "Main Engine";
+    private final String EXHAUSTGAS = "Exhaust Gas";
 
     public WarningModel(String key, float value) {
         getWarning(key, value);
@@ -325,7 +325,7 @@ public class WarningModel {
                 break;
             //MAIN ENGINE
             case "startingair":
-                categories = MAINENGINE;
+                categories = EXHAUSTGAS;
                 title = "Starting Air";
                 if(value<2) {
                     message = "Abnormal. Tekanan<2Mpa";
@@ -340,7 +340,7 @@ public class WarningModel {
                 }
                 break;
             case "gastempbefore":
-                categories = MAINENGINE;
+                categories = EXHAUSTGAS;
                 title = "Gas Temp Before Turbo";
                 if(value<30) {
                     message = "Abnormal. Temp<30°C";
@@ -356,7 +356,7 @@ public class WarningModel {
                 }
                 break;
             case "gastempafter":
-                categories = MAINENGINE;
+                categories = EXHAUSTGAS;
                 title = "Gas Temp After Turbo";
                 if(value<300) {
                     message = "Abnormal. Temp<300°C";

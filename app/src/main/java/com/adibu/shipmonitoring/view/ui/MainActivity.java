@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.main_frame_layout, new FuelOilFragment()).commit();
                 return true;
             case R.id.menu_gas_exhaust:
-                setTitle(getString(R.string.app_name) + " - " + getString(R.string.mainengine));
+                setTitle(getString(R.string.app_name) + " - " + getString(R.string.exhaustgas));
                 getSupportFragmentManager().beginTransaction()
                         .replace(R.id.main_frame_layout, new MainEngineFragment()).commit();
                 return true;
